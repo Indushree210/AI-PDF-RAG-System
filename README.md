@@ -1,55 +1,14 @@
-
-# AI-Powered PDF Question Answering System (RAG)
-
-## Overview
-
-This project is a Retrieval-Augmented Generation (RAG) based PDF Question Answering System. It allows users to upload one or more PDF documents, index them into a Qdrant vector database, and ask natural language questions. The system retrieves the most relevant document chunks using semantic search and generates answers using an LLM through OpenRouter.
-
 # 📄 AI-Powered PDF Question Answering System (RAG)
 
 ## Overview
 
-This project is a Retrieval-Augmented Generation (RAG) based Question Answering system that allows users to upload one or more PDF documents, index their contents into a Qdrant vector database, and ask natural language questions. The application retrieves the most relevant document chunks using semantic search and generates accurate answers using an OpenRouter Large Language Model (LLM).
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
+This project is a Retrieval-Augmented Generation (RAG) based Question Answering System that allows users to upload one or more PDF documents, index their contents into a Qdrant vector database, and ask natural language questions.
+
+The application retrieves the most relevant document chunks using semantic search and generates accurate answers using an OpenRouter Large Language Model (LLM).
 
 ---
 
-## Overall Architecture
-
-
-User Uploads PDF
-        │
-        ▼
-PDF Loader (LangChain)
-        │
-        ▼
-Text Chunking
-(RecursiveCharacterTextSplitter)
-        │
-        ▼
-Sentence Embeddings
-(all-MiniLM-L6-v2)
-        │
-        ▼
-Qdrant Vector Database
-        │
-        ▼
-User Question
-        │
-        ▼
-Embedding Generation
-        │
-        ▼
-Similarity Search (Qdrant)
-        │
-        ▼
-Retrieved Context
-        │
-        ▼
-OpenRouter LLM
-        │
-        ▼
-Answer + Citations
+# Overall Architecture
 
 ```
                 +----------------------+
@@ -79,14 +38,12 @@ Answer + Citations
                            v
              Answer + Source Citations
 ```
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
 
 ---
 
 ## Libraries Used
 
-
-- Python
+- Python 3.11
 - Streamlit
 - LangChain
 - Qdrant Client
@@ -96,70 +53,39 @@ Answer + Citations
 - OpenRouter API
 - PyPDF
 - python-dotenv
-=======
-- Python 3.11
-- Streamlit
-- LangChain
-- Sentence Transformers
-- Qdrant Client
-- OpenAI Python SDK
-- python-dotenv
-- PyPDF
-- Transformers
 - Torch
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
 
 ---
 
 ## Embedding Model Used
 
-
-**sentence-transformers/all-MiniLM-L6-v2**
-
-- Embedding Dimension: **384**
-- Used for semantic document retrieval.
-
 **Model:** `sentence-transformers/all-MiniLM-L6-v2`
 
 - Embedding Dimension: **384**
 - Used to convert PDF text chunks and user queries into dense vector representations for semantic similarity search.
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
 
 ---
 
 ## Assumptions Made
 
-
 - Uploaded PDFs contain extractable text.
-- Qdrant server is running locally on port **6333**.
-- OpenRouter API key is configured in the `.env` file.
-- Internet connection is available for OpenRouter API calls.
-
 - Uploaded files are valid PDF documents.
 - Qdrant server is running locally on **localhost:6333**.
 - OpenRouter API key is configured in the `.env` file.
 - Internet connection is required for OpenRouter API.
-- Users index PDFs before asking questions.
-- The system answers only from the retrieved document context.
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
+- Users should index PDFs before asking questions.
+- The system answers questions only from the retrieved document context.
 
 ---
 
 ## How to Run the Application
 
-
-### 1. Clone the repository
-
 ### 1. Clone the Repository
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Indushree210/AI-PDF-RAG-System.git
 cd AI_RAG_Assignment
 ```
-
-
-### 2. Install dependencies
 
 ### 2. Create a Virtual Environment
 
@@ -167,7 +93,7 @@ cd AI_RAG_Assignment
 python -m venv venv
 ```
 
-Activate the environment:
+### 3. Activate the Virtual Environment
 
 **Windows**
 
@@ -175,66 +101,90 @@ Activate the environment:
 venv\Scripts\activate
 ```
 
-### 3. Install Dependencies
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
+**Linux / macOS**
+
+```bash
+source venv/bin/activate
+```
+
+### 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-
-### 3. Start Qdrant
-
-### 4. Start Qdrant
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
+### 5. Start Qdrant
 
 ```bash
 docker run -p 6333:6333 qdrant/qdrant
 ```
 
+### 6. Configure Environment Variables
 
-### 4. Configure API key
+Create a `.env` file in the project root and add:
 
-### 5. Configure Environment Variables
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
-
-Create a `.env` file:
-
-```text
-
-OPENROUTER_API_KEY=your_api_key
-```
-
-### 5. Run the application
-
+```env
 OPENROUTER_API_KEY=your_api_key_here
 ```
 
-### 6. Run the Application
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
+### 7. Run the Application
 
 ```bash
 streamlit run app.py
 ```
 
+---
 
-### 6. Usage
-
-- Upload one or more PDF files.
-- Click **Index PDFs**.
-- Enter a question.
-- Press **Enter** or click **Get Answer**.
-- View the generated answer along with document citations.
-
-### 7. Usage
+## Usage
 
 1. Upload one or more PDF files.
 2. Click **Index PDFs**.
-3. Enter a question.
-4. Press **Enter** or click **Get Answer**.
-5. View the generated answer along with document citations.
+3. Enter your question.
+4. Click **Get Answer** or press **Enter**.
+5. View the generated answer along with the relevant document citations.
 
 ---
 
-**Developed using Streamlit, Qdrant, Hugging Face Sentence Transformers, and OpenRouter.**
->>>>>>> ab1d3ab4538678aaa555254ba65e45da7fdf029e
+## Features
+
+- Upload multiple PDF documents.
+- Automatic text chunking.
+- Semantic search using Qdrant Vector Database.
+- Fast document retrieval using Sentence Transformers.
+- AI-powered answer generation with OpenRouter LLM.
+- Source citations for retrieved answers.
+- Interactive Streamlit web interface.
+
+---
+
+## Tech Stack
+
+- **Frontend:** Streamlit
+- **Backend:** Python
+- **Vector Database:** Qdrant
+- **Embedding Model:** sentence-transformers/all-MiniLM-L6-v2
+- **LLM:** OpenRouter
+- **Framework:** LangChain
+
+---
+
+## Project Structure
+
+```text
+AI_RAG_Assignment/
+│── app.py
+│── config.py
+│── requirements.txt
+│── README.md
+│── .env
+│── utils/
+│── services/
+│── uploads/
+└── ...
+```
+
+---
+
+## Developed By
+
+**Indushree C S**
